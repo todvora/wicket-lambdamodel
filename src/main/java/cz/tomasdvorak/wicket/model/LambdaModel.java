@@ -4,28 +4,26 @@ import org.apache.wicket.model.IModel;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
-public class FunctionalModel<T, U> implements IModel<T> {
+public class LambdaModel<T, U> implements IModel<T> {
 
-    private final U object;
-    private final Function<U, T> getter;
+    private final Supplier<T> getter;
     private final Consumer<T> setter;
 
-    protected FunctionalModel(Function<U, T> getter, Consumer<T> setter, U object) {
+    protected LambdaModel(Supplier<T> getter, Consumer<T> setter) {
         this.setter = setter;
         this.getter = getter;
-        this.object = object;
     }
 
     @Override
     public T getObject() {
-        return getter.apply(object);
+        return getter.get();
     }
 
     @Override
-    public void setObject(T t) {
-
-        setter.accept(t);
+    public void setObject(T value) {
+        setter.accept(value);
     }
 
     @Override

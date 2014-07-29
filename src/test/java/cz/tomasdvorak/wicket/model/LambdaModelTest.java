@@ -8,10 +8,9 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 
-public class FunctionalModelTest {
+public class LambdaModelTest {
 
-
-    private FunctionalModelTest.Item item;
+    private Item item;
     private Date time;
 
     @Before
@@ -19,12 +18,13 @@ public class FunctionalModelTest {
         Calendar cal = Calendar.getInstance();
         cal.set(2014, Calendar.APRIL, 18);
         this.time = cal.getTime();
-        this.item = new Item("foo", time);
+        cal.add(Calendar.MONTH, +1);
+        this.item = new Item("foo", time, new Item("child", cal.getTime(), null));
     }
 
     @Test
     public void testGetterSetterString() throws Exception {
-        final IModel<String> model = new FunctionalModel<>(Item::getName, item::setName, item);
+        final IModel<String> model = new LambdaModel<>(()->item.getName(), (val)->item.setName(val));
         Assert.assertEquals("foo", model.getObject());
         model.setObject("bar");
         Assert.assertEquals("bar", model.getObject());
@@ -32,27 +32,21 @@ public class FunctionalModelTest {
 
     @Test
     public void testGetterSetterDate() throws Exception {
-        final IModel<Date> model = new FunctionalModel<>(Item::getDate, item::setDate, item);
+        final IModel<Date> model = new LambdaModel<>(item::getDate, item::setDate);
         Assert.assertEquals(time, model.getObject());
         model.setObject(new Date());
         Assert.assertNotEquals(time, model.getObject());
     }
 
-    private class Item {
-
-        private String name;
-        private Date date;
-
-        public Item(String name, Date date) {
-            this.name = name;
-            this.date = date;
-        }
-
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
-
-        private Date getDate() { return date; }
-        private void setDate(Date date) { this.date = date; }
+    @Test
+    public void testNestedObjects() throws Exception {
+        final IModel<String> model = new LambdaModel<>(()->item.getChild().getName(), (val)->item.getChild().setName(val));
+        Assert.assertEquals("child", model.getObject());
+        model.setObject("anotherChild");
+        Assert.assertEquals("anotherChild", model.getObject());
+        Assert.assertEquals("anotherChild", item.getChild().getName());
     }
+
+
 }
 
