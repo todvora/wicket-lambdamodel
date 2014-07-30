@@ -2,13 +2,13 @@ package cz.tomasdvorak.wicket.model;
 
 import java.util.Date;
 
-public class Item {
+public class Person {
 
     private String name;
     private Date date;
-    private Item child;
+    private Person child;
 
-    public Item(String name, Date date, Item child) {
+    public Person(String name, Date date, Person child) {
         this.name = name;
         this.date = date;
         this.child = child;
@@ -20,6 +20,6 @@ public class Item {
     public Date getDate() { return date; }
     public void setDate(Date date) { this.date = date; }
 
-    public Item getChild() { return child; }
-    public void setChild(Item child) { this.child = child; }
+    public Person getChild() { return child; }
+    public void setChild(Person child) { this.child = child; }
 }

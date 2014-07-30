@@ -1,12 +1,13 @@
 package cz.tomasdvorak.wicket.model;
 
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.model.IModel;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class LambdaModel<T, U> implements IModel<T> {
+public class LambdaModel<T> implements IModel<T> {
 
     private final Supplier<T> getter;
     private final Consumer<T> setter;
@@ -18,12 +19,20 @@ public class LambdaModel<T, U> implements IModel<T> {
 
     @Override
     public T getObject() {
-        return getter.get();
+        try {
+            return getter.get();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
     public void setObject(T value) {
-        setter.accept(value);
+        try {
+            setter.accept(value);
+        } catch (NullPointerException e) {
+            throw new WicketRuntimeException("Attempted to set property value on a null object.", e);
+        }
     }
 
     @Override
