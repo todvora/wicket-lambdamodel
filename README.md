@@ -1,5 +1,8 @@
 Lambda Model
 =================
+[![Build Status](https://travis-ci.org/todvora/wicket-lambdamodel.svg?branch=master)](https://travis-ci.org/todvora/wicket-lambdamodel)
+[![Coverage Status](https://coveralls.io/repos/todvora/wicket-lambdamodel/badge.png)](https://coveralls.io/r/todvora/wicket-lambdamodel)
+
 Lambda Model is replacement for unsafe PropertyModel. Property Model works ok, it's easy to write, easy to understand. But it has several problems. Mainly it is not type safe. And that is something you really don't want in Java code. For example suppose, we have object person of type Person, with property name of type String. 
 Then property model looks like this. 
 
