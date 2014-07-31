@@ -3,16 +3,16 @@ Lambda Model
 [![Build Status](https://travis-ci.org/todvora/wicket-lambdamodel.svg?branch=master)](https://travis-ci.org/todvora/wicket-lambdamodel)
 [![Coverage Status](https://coveralls.io/repos/todvora/wicket-lambdamodel/badge.png)](https://coveralls.io/r/todvora/wicket-lambdamodel)
 
-Lambda Model is replacement for unsafe PropertyModel. Property Model works ok, it's easy to write, easy to understand. But it has several problems. Mainly it is not type safe. And that is something you really don't want in Java code. For example suppose, we have object person of type Person, with property name of type String. 
-Then property model looks like this. 
+Lambda Model is replacement for unsafe PropertyModel. Property Model works ok, it's easy to write, easy to understand and code is short. But it has several problems. Mainly it is not type safe. And that is something you really don't want in Java code. For example suppose we have object person of type Person with property name of type String. 
+Then property model looks like this:
 
 ```
 IModel<String> nameModel = new PropertyModel<String>(person, "name");
 ```
-Everything works well, it is short and elegant. But one day you decide, that name should not be String, rather object of type Name, with properties firstName and lastName.
+Everything works well, it is short and elegant. But one day you decide that name should not be String, rather object of type Name, with properties firstName and lastName.
 Your IDE will help you to refactor code. But compiler and IDE has no chance to recognize, that old PropertyModel is now accessing different type and will return wrong data (probably toString of object).
 
-Or you decide to rename property (and getter and setter) to fullName and error is introduced. Compiler will not check, that old property name does not exist anymore. This and other problems of PropertyModel are also descibed in article [A CLEAN APPROACH TO WICKET MODELS](http://blog.eluder.org/2012/02/a-clean-approach-to-wicket-models/) by [@trautonen](https://github.com/trautonen/).
+Or you decide to rename property (and getter and setter) to fullName and error is introduced. Compiler will not check that old property name does not exist anymore. This and other problems of PropertyModel are also descibed in article [A CLEAN APPROACH TO WICKET MODELS](http://blog.eluder.org/2012/02/a-clean-approach-to-wicket-models/) by [@trautonen](https://github.com/trautonen/).
 
 Lot's of people are dealing with this problem and looking for a way how to ensure type safety while keeping symplicity of PropertyModel. For example project [SafeModel](https://github.com/duesenklipper/wicket-safemodel) uses proxy and reflection to remove string-typed properties.
 
