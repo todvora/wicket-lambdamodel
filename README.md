@@ -33,4 +33,4 @@ final IModel<String> model = new LambdaModel<>(()->person.getChild().getName(), 
 
 Implementation is based on [Supplier](http://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html) and [Consumer](http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html) functional interfaces from Java 8. 
 
-Main benefits are: no magic, type safety, easy refactoring. Current known limitation is possibility to provide getter, that access different property than setter. There is nothing to prevent it. 
+Main benefits are: no magic, type safety, easy refactoring. Current known limitation is possibility to provide getter different from setter and access two different properties. There is nothing to prevent it. But on the other hand it will help you to write simple models for objects, that are not pure POJOs. 
