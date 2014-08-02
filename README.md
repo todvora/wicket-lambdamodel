@@ -3,7 +3,12 @@ Lambda Model
 [![Build Status](https://travis-ci.org/todvora/wicket-lambdamodel.svg?branch=master)](https://travis-ci.org/todvora/wicket-lambdamodel)
 [![Coverage Status](https://coveralls.io/repos/todvora/wicket-lambdamodel/badge.png)](https://coveralls.io/r/todvora/wicket-lambdamodel)
 
-Lambda Model is replacement for unsafe PropertyModel. Property Model works ok, it's easy to write, easy to understand and code is short. But it has several problems. Mainly it is not type safe. And that is something you really don't want in Java code. For example suppose we have object person of type Person with property name of type String. 
+Lambda Model is replacement for usual PropertyModel. It tries to be as simple as possible to write, ensure type safety and keep code short and readable. To achieve this, lambda model uses [lambda expressions](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html) from Java 8.
+
+```
+IModel<String> model = new LambdaModel<String>(getterExpression, setterExpression);
+```
+Why to replace PropertyModel at first place? Property Model works fine, it's easy to write, easy to understand and code is short. But it has several problems. Mainly it is not type safe and not refactoring friendly. And that is something you really don't want in Java code. For example suppose we have object person of type Person with property name of type String. 
 Then property model looks like this:
 
 ```
