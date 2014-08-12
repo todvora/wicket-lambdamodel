@@ -8,7 +8,7 @@ public class LambdaModel<T> implements IModel<T> {
     private final SerializableSupplier<T> getter;
     private final SerializableConsumer<T> setter;
 
-    protected LambdaModel(final SerializableSupplier<T> getter, final SerializableConsumer<T> setter) {
+    public LambdaModel(final SerializableSupplier<T> getter, final SerializableConsumer<T> setter) {
         this.setter = setter;
         this.getter = getter;
     }
