@@ -8,7 +8,7 @@ public class LambdaModel<T> implements IModel<T> {
     private final SerializableSupplier<T> getter;
     private final SerializableConsumer<T> setter;
 
-    protected LambdaModel(SerializableSupplier<T> getter, SerializableConsumer<T> setter) {
+    protected LambdaModel(final SerializableSupplier<T> getter, final SerializableConsumer<T> setter) {
         this.setter = setter;
         this.getter = getter;
     }
@@ -23,7 +23,7 @@ public class LambdaModel<T> implements IModel<T> {
     }
 
     @Override
-    public void setObject(T value) {
+    public void setObject(final T value) {
         try {
             setter.accept(value);
         } catch (NullPointerException e) {

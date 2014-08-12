@@ -18,7 +18,7 @@ public class LambdaModelTest {
 
     @Before
     public void setUp() throws Exception {
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.set(1987, Calendar.APRIL, 18);
         this.time = cal.getTime();
         cal.add(Calendar.MONTH, +1);
@@ -33,14 +33,14 @@ public class LambdaModelTest {
 
         // serialize model, like when wicket puts model to session
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(stream);
+        final ObjectOutputStream out = new ObjectOutputStream(stream);
         out.writeObject(lambdaModel);
 
         // serialized model (String in bytes form)
         final byte[] serializedLambda = stream.toByteArray();
 
         // read model from serialized data
-        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(serializedLambda));
+        final ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(serializedLambda));
          final LambdaModel<String> deserializedLambda = (LambdaModel<String>) in.readObject();
 
         // verify, that it still returns correct data

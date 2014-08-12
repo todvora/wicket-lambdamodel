@@ -9,18 +9,18 @@ public class Person implements Serializable {
     private Date date;
     private Person child;
 
-    public Person(String name, Date date, Person child) {
+    public Person(final String name, final Date date, final Person child) {
         this.name = name;
         this.date = date;
         this.child = child;
     }
 
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(final String name) { this.name = name; }
 
     public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public void setDate(final Date date) { this.date = date; }
 
     public Person getChild() { return child; }
-    public void setChild(Person child) { this.child = child; }
+    public void setChild(final Person child) { this.child = child; }
 }
