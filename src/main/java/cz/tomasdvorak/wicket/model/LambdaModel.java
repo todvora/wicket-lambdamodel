@@ -3,16 +3,12 @@ package cz.tomasdvorak.wicket.model;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.model.IModel;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 public class LambdaModel<T> implements IModel<T> {
 
-    private final Supplier<T> getter;
-    private final Consumer<T> setter;
+    private final SerializableSupplier<T> getter;
+    private final SerializableConsumer<T> setter;
 
-    protected LambdaModel(Supplier<T> getter, Consumer<T> setter) {
+    protected LambdaModel(SerializableSupplier<T> getter, SerializableConsumer<T> setter) {
         this.setter = setter;
         this.getter = getter;
     }

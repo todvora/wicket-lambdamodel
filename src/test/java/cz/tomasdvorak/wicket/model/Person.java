@@ -1,8 +1,9 @@
 package cz.tomasdvorak.wicket.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Person {
+public class Person implements Serializable {
 
     private String name;
     private Date date;

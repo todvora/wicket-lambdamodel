@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,6 +23,28 @@ public class LambdaModelTest {
         this.time = cal.getTime();
         cal.add(Calendar.MONTH, +1);
         this.person = new Person("foo", time, new Person("child", cal.getTime(), null));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testSerialize() throws IOException, ClassNotFoundException {
+        // create lambda model
+        final LambdaModel<String> lambdaModel = new LambdaModel<>(person::getName, person::setName);
+
+        // serialize model, like when wicket puts model to session
+        final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(stream);
+        out.writeObject(lambdaModel);
+
+        // serialized model (String in bytes form)
+        final byte[] serializedLambda = stream.toByteArray();
+
+        // read model from serialized data
+        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(serializedLambda));
+         final LambdaModel<String> deserializedLambda = (LambdaModel<String>) in.readObject();
+
+        // verify, that it still returns correct data
+        Assert.assertEquals("foo", deserializedLambda.getObject());
     }
 
     @Test
